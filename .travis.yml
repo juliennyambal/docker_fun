@@ -3,11 +3,12 @@ sudo: required
 env:
   DOCKER_COMPOSE_VERSION: 1.16.1
 
+language: generic
 services:
   - docker
 
 before_install:
-  - docker pull docker/whalesay
+  - docker pull segence/hadoop:latest
 
 script:
   - docker-compose -f docker-compose.yml up -d
