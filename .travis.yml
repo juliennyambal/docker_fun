@@ -1,9 +1,10 @@
 sudo: required
 language: generic
-services:
+sud:
 - docker
 notifications:
   slack:
     on_success: always
+build: .
 after_success:
 - sbin/ifconfig
