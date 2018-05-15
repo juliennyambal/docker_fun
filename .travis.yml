@@ -1,10 +1,14 @@
 sudo: required
-language: generic
-sud:
-- docker
-notifications:
-  slack:
-    on_success: always
-build: .
-after_success:
-- sbin/ifconfig
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.16.1
+
+services:
+  - docker
+
+before_install:
+  - docker pull docker/whalesay
+
+script:
+  - docker-compose -f docker-compose.yml up -d
+  - docker-compose -f docker-compose.yml ps
