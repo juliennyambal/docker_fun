@@ -7,8 +7,8 @@ language: generic
 services:
   - docker
 
-install:
-  - docker pull segence/hadoop:latest
+before_install:
+  - docker pull carlad/sinatra
 
 script:
   - docker-compose -f docker-compose.yml up -d
