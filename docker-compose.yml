@@ -2,3 +2,4 @@ version: '2'
 services:
     db:
         image: segence/hadoop
+        container_name: dog
