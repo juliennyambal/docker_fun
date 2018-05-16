@@ -40,26 +40,8 @@ ENV LD_LIBRARY_PATH=$HADOOP_HOME/lib/native/:$LD_LIBRARY_PATH
 # Configuring Hadoop classpath for Spark
 RUN echo "export SPARK_DIST_CLASSPATH=$($HADOOP_HOME/bin/hadoop classpath)" > /usr/local/spark/conf/spark-env.sh
 
-# Installing the R language
-RUN apt-get install -y libssl-dev libssh2-1-dev libcurl4-openssl-dev libssl-dev r-base
-RUN R -e "install.packages('devtools', repos = 'http://cran.us.r-project.org')"
-RUN R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org')"
-RUN R -e "install.packages('ggplot2', repos = 'http://cran.us.r-project.org')"
-RUN R -e "install.packages(c('devtools','mplot', 'googleVis'), repos = 'http://cran.us.r-project.org'); require(devtools); install_github('ramnathv/rCharts')"
-
-# Installing Zeppelin
-RUN wget http://mirrors.ukfast.co.uk/sites/ftp.apache.org/zeppelin/zeppelin-0.7.3/zeppelin-0.7.3-bin-netinst.tgz
-RUN tar -xzvf zeppelin-0.7.3-bin-netinst.tgz -C /usr/local/
-RUN mv /usr/local/zeppelin-0.7.3-bin-netinst /usr/local/zeppelin
-
-ENV ZEPPELIN_HOME=/usr/local/zeppelin
-COPY config/zeppelin-env.sh $ZEPPELIN_HOME/conf/zeppelin-env.sh
-COPY config/zeppelin-site.xml $ZEPPELIN_HOME/conf/zeppelin-site.xml
-
-RUN chown -R hadoop:hadoop $ZEPPELIN_HOME
-
 # Setting the PATH environment variable globally and for the Hadoop user
-ENV PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCALA_HOME/bin:$SPARK_HOME/bin:$ZEPPELIN_HOME/bin
+ENV PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCALA_HOME/bin:$SPARK_HOME/bin
 RUN echo "PATH=$PATH:$JAVA_HOME/bin:/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$SCALA_HOME/bin:$SPARK_HOME/bin" >> /home/hadoop/.bashrc
 
 # Hadoop configuration
@@ -86,7 +68,6 @@ RUN ln -s /config/slaves $HADOOP_CONF_DIR/slaves
 # Setting up log directories
 RUN ln -s /data/logs/hadoop $HADOOP_HOME/logs
 RUN ln -s $HADOOP_HOME/logs /var/log/hadoop
-RUN ln -s $ZEPPELIN_HOME/logs /var/log/zeppelin
 
 # Set permissions on Hadoop home
 RUN chown -R hadoop:hadoop $HADOOP_HOME

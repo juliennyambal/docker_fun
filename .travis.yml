@@ -8,4 +8,5 @@ before_install:
   - docker pull segence/hadoop
 
 script:
-  - docker run segence/hadoop
+  - docker-compose up -d
+  - docker ps
