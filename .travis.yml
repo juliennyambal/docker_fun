@@ -9,4 +9,4 @@ before_install:
 
 script:
   - docker-compose up -d
-  - docker-compose -f docker-compose.yml ps
+  - docker run db
