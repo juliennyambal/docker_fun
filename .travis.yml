@@ -10,4 +10,5 @@ before_install:
 script:
   - docker-compose up -d
   - docker ps
+  - docker exec hadoop-namenode /bin/sh -c "yes Y|/home/hadoop/utils/format-namenode.sh"
   - ls -R
