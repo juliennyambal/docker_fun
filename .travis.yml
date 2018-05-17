@@ -13,4 +13,5 @@ script:
   - docker exec --user hadoop hadoop-namenode /bin/sh -c "yes Y|/home/hadoop/utils/format-namenode.sh"
   - docker exec hadoop-namenode /bin/sh -c "service hadoop start"
   - docker exec --user root hadoop-namenode /bin/sh -c "/usr/local/spark/sbin/start-master.sh"
-  - ifconfig
+  - echo "Done with driver's machine..."
+  - docker exec --user root hadoop-datanode1 /bin/sh/ -c "/usr/local/spark/sbin/start-slave.sh spark://172.18.0.1:7077"
