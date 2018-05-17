@@ -10,5 +10,4 @@ before_install:
 script:
   - docker-compose up -d
   - docker ps
-  - ls
-  - docker exec hadoop-namenode bash
+  - ls -R
