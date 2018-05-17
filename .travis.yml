@@ -11,4 +11,6 @@ script:
   - docker-compose up -d
   - docker ps
   - docker exec hadoop-namenode /bin/sh -c "yes Y|/home/hadoop/utils/format-namenode.sh"
-  - ls -R
+  - docker exec hadoop-namenode /bin/sh -c "service hadoop start"
+  - docker exec hadoop-namenode /bin/sh -c "su hadoop -c /usr/local/spark/sbin/start-master.sh"
+  - ifconfig
