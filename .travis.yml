@@ -10,8 +10,8 @@ before_install:
 script:
   - docker-compose up -d
   - docker ps
-  - docker exec hadoop-namenode /bin/sh -c "yes Y|/home/hadoop/utils/format-namenode.sh"
+  - docker exec --user hadoop hadoop-namenode /bin/sh -c "yes Y|/home/hadoop/utils/format-namenode.sh"
   - docker exec hadoop-namenode /bin/sh -c "service hadoop start"
-  - docker exec hadoop-namenode /bin/sh -c "/usr/local/spark/sbin/start-master.sh"
+  - docker exec --user hadoop hadoop-namenode /bin/sh -c "/usr/local/spark/sbin/start-master.sh"
   - ls -R
   - ifconfig
