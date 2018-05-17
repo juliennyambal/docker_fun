@@ -12,5 +12,5 @@ script:
   - docker ps
   - docker exec --user hadoop hadoop-namenode /bin/sh -c "yes Y|/home/hadoop/utils/format-namenode.sh"
   - docker exec hadoop-namenode /bin/sh -c "service hadoop start"
-  - docker exec --user hadoop hadoop-namenode /bin/sh -c "su hadoop -c /usr/local/spark/sbin/start-master.sh"
+  - docker exec --user root hadoop-namenode /bin/sh -c "/usr/local/spark/sbin/start-master.sh"
   - ifconfig
